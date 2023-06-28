@@ -57,7 +57,7 @@ debugButton.addEventListener('click', async () => {
     const fromLanguage = fromLanguageSelect.value;
     const toLanguage = toLanguageSelect.value;
   
-    // Send code and languages to ChatGPT API for conversion
+    
     fetch('/quality', {
       method: 'POST',
       headers: {
@@ -102,6 +102,6 @@ document.addEventListener("click", (event) => {
   const outputTextarea = document.getElementById("output");
 
   if (!outputTextarea.contains(event.target)) {
-    copyButton.textContent = "Copy code";
+    copyButton.textContent = "coppied!";
   }
 });
