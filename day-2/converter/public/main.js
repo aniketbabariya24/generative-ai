@@ -102,6 +102,6 @@ document.addEventListener("click", (event) => {
   const outputTextarea = document.getElementById("output");
 
   if (!outputTextarea.contains(event.target)) {
-    copyButton.textContent = "coppied!";
+    copyButton.textContent = "copy";
   }
 });
