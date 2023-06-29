@@ -38,7 +38,10 @@ convertButton.addEventListener('click', async () => {
 
 debugButton.addEventListener('click', async () => {
     const code = inputTextarea.value;  
+    outputTextarea.textContent="Loading...";
     // Send code and languages to ChatGPT API for conversion
+
+    setTimeout(() => {
     fetch('/debug', {
         method: 'POST',
         headers: {
@@ -54,6 +57,9 @@ debugButton.addEventListener('click', async () => {
           outputTextarea.textContent = 'An error occurred while converting the code.';
           console.error('Error:', error);
         });
+      }, 3000);
+
+
   });
 
 
@@ -61,8 +67,9 @@ debugButton.addEventListener('click', async () => {
     const code = inputTextarea.value;
     const fromLanguage = fromLanguageSelect.value;
     const toLanguage = toLanguageSelect.value;
-  
+    outputTextarea.textContent="Loading...";
     
+    setTimeout(() => {
     fetch('/quality', {
       method: 'POST',
       headers: {
@@ -78,6 +85,7 @@ debugButton.addEventListener('click', async () => {
         outputTextarea.textContent = 'An error occurred while converting the code.';
         console.error('Error:', error);
       });
+    }, 3000);
   });
 
 
