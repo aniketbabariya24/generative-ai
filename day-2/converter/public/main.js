@@ -11,6 +11,9 @@ convertButton.addEventListener('click', async () => {
   const fromLanguage = fromLanguageSelect.value;
   const toLanguage = toLanguageSelect.value;
   outputTextarea.textContent="Loading...";
+  convertButton.classList.add("loading")
+  convertButton.style.paddingRight="35px"
+
 
  setTimeout(() => {
   fetch('/convert', {
@@ -24,13 +27,16 @@ convertButton.addEventListener('click', async () => {
     .then(data => {
     //   console.log(data)
     outputTextarea.innerHTML = data.response;
+    convertButton.classList.remove("loading");
+convertButton.style.paddingRight="20px"
+
     })
     .catch(error => {
         outputTextarea.textContent = 'An error occurred while converting the code.';
       console.error('Error:', error);
     });
 
- }, 3000);
+ }, 0000);
 
 
 });
@@ -39,6 +45,8 @@ convertButton.addEventListener('click', async () => {
 debugButton.addEventListener('click', async () => {
     const code = inputTextarea.value;  
     outputTextarea.textContent="Loading...";
+    debugButton.classList.add("loading")
+    debugButton.style.paddingRight="35px"
     // Send code and languages to ChatGPT API for conversion
 
     setTimeout(() => {
@@ -52,6 +60,8 @@ debugButton.addEventListener('click', async () => {
         .then(response => response.json())
         .then(data => {
             outputTextarea.innerHTML = data.response;
+            debugButton.classList.remove("loading");
+            debugButton.style.paddingRight="20px"
         })
         .catch(error => {
           outputTextarea.textContent = 'An error occurred while converting the code.';
@@ -68,6 +78,8 @@ debugButton.addEventListener('click', async () => {
     const fromLanguage = fromLanguageSelect.value;
     const toLanguage = toLanguageSelect.value;
     outputTextarea.textContent="Loading...";
+    checkButton.classList.add("loading")
+    checkButton.style.paddingRight="35px"
     
     setTimeout(() => {
     fetch('/quality', {
@@ -80,6 +92,8 @@ debugButton.addEventListener('click', async () => {
       .then(response => response.json())
       .then(data => {
           outputTextarea.innerHTML = data.response;
+          checkButton.classList.remove("loading");
+          checkButton.style.paddingRight="20px"
       })
       .catch(error => {
         outputTextarea.textContent = 'An error occurred while converting the code.';
