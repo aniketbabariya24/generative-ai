@@ -10,24 +10,29 @@ convertButton.addEventListener('click', async () => {
   const code = inputTextarea.value;
   const fromLanguage = fromLanguageSelect.value;
   const toLanguage = toLanguageSelect.value;
+  outputTextarea.textContent="Loading...";
 
-  // Send code and languages to ChatGPT API for conversion
+ setTimeout(() => {
   fetch('/convert', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ code, fromLanguage, toLanguage })
-      })
-        .then(response => response.json())
-        .then(data => {
-        //   console.log(data)
-        outputTextarea.innerHTML = data.response;
-        })
-        .catch(error => {
-            outputTextarea.textContent = 'An error occurred while converting the code.';
-          console.error('Error:', error);
-        });
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ code, fromLanguage, toLanguage })
+  })
+    .then(response => response.json())
+    .then(data => {
+    //   console.log(data)
+    outputTextarea.innerHTML = data.response;
+    })
+    .catch(error => {
+        outputTextarea.textContent = 'An error occurred while converting the code.';
+      console.error('Error:', error);
+    });
+
+ }, 3000);
+
+
 });
 
 
