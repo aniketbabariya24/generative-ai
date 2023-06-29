@@ -139,6 +139,10 @@
     background-color: #555;
     color: #fff;
   }
+  #copyButton:hover{
+    background-color: rgb(58, 58, 58);
+    cursor: pointer;
+  }
 
   #convertButton{
     background-color: rgb(0, 190, 73);
