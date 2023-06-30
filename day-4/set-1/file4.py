@@ -1,8 +1,12 @@
-numbers= [10,20,30,40,50];
+# 4. **Sum and Average**: Write a Python program that calculates and prints the sum and average of a list of numbers.
+#     - *Input*: [10, 20, 30, 40]
+#     - *Output*: "Sum: 100, Average: 25.0"
 
-numberSum= sum(numbers);
+numbers=[10,20,30,40,50]
 
-numberAverage= numberSum/len(numbers)
+sumNumbers= sum(numbers)
 
-print("Sum :", numberSum)
-print("Average :", numberAverage)
+avgNumbers= sumNumbers/len(numbers)
+
+print("Sum of numbers: ", sumNumbers)
+print("Average of numbers: ", avgNumbers)

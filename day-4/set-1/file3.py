@@ -1,14 +1,17 @@
-numbers= list(range(1,11));
+# 3. **List Operations**: Write a Python program to create a list of numbers from 1 to 10, and then add a number, remove a number, and sort the list.
+#     - *Input*: None
+#     - *Output*: "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20]..."
+
+
+numbers= list(range(1,11))
 print(numbers)
 
-numbers.append(24)
+numbers.append(3)
+numbers.append(45)
+numbers.append(23)
 print(numbers)
 
-numbers.append(11)
-print(numbers)
-
-
-numbers.remove(3)
+numbers.remove(2)
 print(numbers)
 
 numbers.sort();

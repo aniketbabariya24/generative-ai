@@ -1,17 +1,16 @@
-def findFactorial(number):
-    if number < 0:
-        return None
-    elif number == 0:
-        return 1
-    else:
-        ans = 1
-        for i in range(1, number + 1):
-            ans *= i
-        return ans
+# 8. **Factorial Calculation**: Write a Python function that calculates the factorial of a number.
+#     - *Input*: 5
+#     - *Output*: "Factorial of 5 is 120."
+
+def fect(N):
+  if N == 0 or N == 1:
+    return 1
+    
+  return N * fect(N-1)
 
 
-number = 5
-ans = findFactorial(number)
-if ans is not None:
-    print("Factorial of", number, "is", ans)
+num=5
 
+ans=fect(num)
+
+print("Factorial of", num, "is", ans)

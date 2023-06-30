@@ -1,12 +1,13 @@
-def countVowel(str):
-    vowels = "aeiouAEIOU"
-    ans = 0
-    for i in str:
-        if i in vowels:
-            ans += 1
-    return ans
+# 6. **Count Vowels**: Write a Python program that counts the number of vowels in a given string.
+#     - *Input*: "Hello"
+#     - *Output*: "Number of vowels: 2"
 
+str= "ABCDE"
+ans=0
+vowels= "aeiouAEIOU"
 
-str = "masai"
-ans = countVowel(str)
-print("Number of vowels:", ans)
+for i in str:
+    if i in vowels:
+        ans=ans+1
+
+print(ans)        
