@@ -114,7 +114,7 @@ def add_dish():
     is_available = request.json.get('isAvailable', True)
 
     # Create a new dish
-    dish = Dish(name=name,description=description , price=price, stocks=stocks, isAvailable=is_available)
+    dish = Dish(name=name , description=description, price=price, stocks=stocks, isAvailable=is_available)
     dish.save()
 
     return jsonify({'message': 'Dish added successfully'})
@@ -130,6 +130,7 @@ def get_dishes():
             'name': dish.name,
             'price': dish.price,
             'stocks': dish.stocks,
+            'description':dish.description,
             'isAvailable': dish.isAvailable
         }
         dish_list.append(dish_data)
@@ -147,11 +148,13 @@ def update_dish(id):
     name = request.json.get('name')
     price = request.json.get('price')
     stocks = request.json.get('stocks')
+    description = request.json.get('description')
     is_available = request.json.get('isAvailable')
 
     dish.name = name if name else dish.name
     dish.price = price if price else dish.price
     dish.stocks = stocks if stocks else dish.stocks
+    dish.description = description if description else dish.description
     dish.isAvailable = is_available if is_available is not None else dish.isAvailable
 
     dish.save()
