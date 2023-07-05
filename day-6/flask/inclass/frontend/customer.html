@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Page</title>
+    <link rel="stylesheet" href="./navbar.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="./menu.html">Menu</a></li>
+            <li><a href="#">Offers</a></li>
+            <li><a href="#" id="walletAmount">Wallet: $0</a></li>
+            <li><a href="#" id="addAmountBtn">Add Amount</a></li>
+            <li><a href="./" id="bucket">Bucket</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <!-- Your page content here -->
+    </div>
+
+    <!-- Wallet Amount Popup -->
+    <div id="addAmountPopup" class="popup">
+        <div class="popup-content">
+            <h2>Add Amount to Wallet</h2>
+            <form id="addAmountForm">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" required><br><br>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </div>
+
+    <script src="./navbar.js"></script>
+</body>
+
+</html>

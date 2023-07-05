@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Menu</title>
+    <style>
+        #menu-table-container {
+  margin: 20px auto;
+  width: 80%;
+}
+
+#menu-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#menu-table th,
+#menu-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#menu-table th {
+  background-color: #f2f2f2;
+}
+
+#menu-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#menu-table tbody tr:hover {
+  background-color: #eaf7ff;
+}
+
+#menu-table button {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#menu-table button:hover {
+  background-color: #45a049;
+}
+
+    </style>
+    <link rel="stylesheet" href="./navbar.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="./menu.html">Menu</a></li>
+            <li><a href="#">Offers</a></li>
+            <li><a href="#" id="walletAmount">Wallet: $0</a></li>
+            <li><a href="#" id="addAmountBtn">Add Amount</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <!-- Your page content here -->
+    </div>
+
+    <!-- Wallet Amount Popup -->
+    <div id="addAmountPopup" class="popup">
+        <div class="popup-content">
+            <h2>Add Amount to Wallet</h2>
+            <form id="addAmountForm">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" required><br><br>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </div>
+    <h1>Menu</h1>
+    <div id="menu-table-container">
+    <table id="menu-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stocks</th>
+            <th>Add to Bucket</th>
+          </tr>
+        </thead>
+        <tbody id="menu-table-body">
+          <!-- Table rows will be dynamically generated here -->
+        </tbody>
+      </table>
+    </div>
+      
+    <script>
+        // Fetch dishes from the backend API
+fetch("http://localhost:5000/dishes")
+  .then(function(response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error("Error: " + response.status);
+    }
+  })
+  .then(function(data) {
+    // Process the fetched dishes data
+    var dishes = data;
+
+    // Get the table body element
+    var tableBody = document.getElementById("menu-table-body");
+
+    // Iterate over each dish and create a table row
+    dishes.forEach(function(dish) {
+      // Create a new row element
+      var row = document.createElement("tr");
+
+      // Create table cells and populate them with dish data
+      var nameCell = document.createElement("td");
+      nameCell.textContent = dish.name;
+
+      var descriptionCell = document.createElement("td");
+      descriptionCell.textContent = dish.description;
+
+      var priceCell = document.createElement("td");
+      priceCell.textContent = dish.price;
+
+      var stocksCell = document.createElement("td");
+      stocksCell.textContent = dish.stocks;
+
+
+      // Create a "Add to Bucket" button
+      var addButton = document.createElement("button");
+      addButton.textContent = "Add";
+      addButton.className='add-button'
+      // Add event listener to the "Add" buttons
+document.querySelectorAll('.add-button').forEach(function(button) {
+  button.addEventListener('click', function(event) {
+    // Get the item details from the row
+    var name = event.target.dataset.name;
+    var price = event.target.dataset.price;
+    var description = event.target.dataset.description;
+
+    // Create an object for the item
+    var item = {
+      name: name,
+      price: price,
+      description: description
+    };
+
+    // Retrieve the bucket array from localStorage
+    var bucket = JSON.parse(localStorage.getItem('bucket')) || [];
+
+    // Add the item to the bucket array
+    bucket.push(item);
+
+    // Store the updated bucket array in localStorage
+    localStorage.setItem('bucket', JSON.stringify(bucket));
+  });
+});
+
+
+      var addToBucketCell = document.createElement("td");
+      addToBucketCell.appendChild(addButton);
+
+      // Append the cells to the row
+      row.appendChild(nameCell);
+      row.appendChild(descriptionCell);
+      row.appendChild(priceCell);
+      row.appendChild(stocksCell);
+      row.appendChild(addToBucketCell);
+
+      // Append the row to the table body
+      tableBody.appendChild(row);
+    });
+  })
+  .catch(function(error) {
+    console.log(error);
+    alert("An error occurred while fetching dishes");
+  });
+
+    </script>
+</body>
+</html>
+<script src="./navbar.js"></script>
