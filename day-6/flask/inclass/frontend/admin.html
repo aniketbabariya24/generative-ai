@@ -5,8 +5,94 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin</title>
+    <style>
+        .admin-buttons {
+  margin-bottom: 20px;
+}
+
+#add-dish-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#add-dish-form input,
+#add-dish-form button {
+  margin-bottom: 10px;
+}
+
+#add-dish-form label {
+  margin-bottom: 5px;
+}
+
+#add-dish-form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+#add-dish-form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+    </style>
 </head>
 <body>
     <h1>Welcome to Admin</h1>
+    <div class="admin-buttons">
+        <button id="add-dish-button">Add dish</button>
+      </div>
+      <form id="add-dish-form">
+        <input type="text" id="dish-name" placeholder="Dish name" required>
+        <input type="number" id="dish-price" placeholder="Price" required>
+        <input type="number" id="dish-stocks" placeholder="Stocks" required>
+        <label for="dish-availability">Availability:</label>
+        <input type="checkbox" id="dish-availability">
+        <button type="submit">Add Dish</button>
+      </form>
+            
 </body>
 </html>
+<script>
+    const addDishForm = document.getElementById('add-dish-form');
+
+addDishForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const dishName = document.getElementById('dish-name').value;
+  const dishPrice = document.getElementById('dish-price').value;
+  const dishStocks = document.getElementById('dish-stocks').value;
+  const dishAvailability = document.getElementById('dish-availability').checked;
+
+  const dishData = {
+    name: dishName,
+    price: dishPrice,
+    stocks: dishStocks,
+    isAvailable: dishAvailability
+  };
+
+  fetch('http://localhost:5000/adddish', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dishData)
+  })
+  .then(function(response) {
+    if (response.ok) {
+      alert('Dish added successfully');
+      // Optionally, perform additional actions or refresh the dish list
+    } else {
+      alert('Failed to add dish');
+    }
+  })
+  .catch(function(error) {
+    console.log(error);
+    alert('An error occurred');
+  });
+});
+
+</script>
