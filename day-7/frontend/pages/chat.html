@@ -1,0 +1,55 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  </head>
+  <body>
+    <h1>Chatbot Demo</h1>
+    
+    <div id="chatbox">
+      <ul id="messages"></ul>
+      <form id="message-form">
+        <input id="input-message" type="text" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
+    <script>
+      // Connect to the Socket.IO server
+      const socket = io();
+
+      // Get references to DOM elements
+      const messagesList = document.getElementById('messages');
+      const messageForm = document.getElementById('message-form');
+      const messageInput = document.getElementById('input-message');
+
+      // Event listener for form submission
+      messageForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const message = messageInput.value.trim();
+
+        if (message !== '') {
+          // Send the message to the server
+          socket.emit('message', { message });
+
+          // Clear the input field
+          messageInput.value = '';
+        }
+      });
+
+      // Event listener for receiving messages from the server
+      socket.on('message', (data) => {
+        const message = data.message;
+
+        // Create a new list item for the received message
+        const listItem = document.createElement('li');
+        listItem.textContent = message;
+
+        // Append the list item to the messages list
+        messagesList.appendChild(listItem);
+      });
+    </script>
+  </body>
+</html>
