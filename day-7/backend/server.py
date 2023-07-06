@@ -17,7 +17,6 @@ mongoUri = os.getenv('MONGOURI')
 app = Flask(__name__)
 connect('zomato', host=mongoUri)  # Replace with your MongoDB URI
 CORS(app)
-socketio = SocketIO(app)
 
 # Schema for Users
 class User(Document):
@@ -270,16 +269,6 @@ def add_to_cart(id,did):
 
     return jsonify({'message': 'Dish added to cart successfully'})
 
-@socketio.on('message')
-def handle_message(data):
-    message = data['message']
-    # Process the message or interact with the chatbot
-    # You can use the ChatGPT key here for chatbot interactions
-    # Send the response back to the client
-    response = {
-        'message': 'Chatbot response'
-    }
-    emit('message', response)
 
 if __name__ == '__main__':
     app.run(debug=True)

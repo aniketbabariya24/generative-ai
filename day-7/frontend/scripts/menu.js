@@ -7,7 +7,7 @@ function calculateTotalAmount() {
   }
 
   let cartItems = [];
-
+ 
   const myId = localStorage.getItem('userId');
 
   fetch(`http://localhost:5000/customer/${myId}`)
@@ -61,7 +61,8 @@ function calculateTotalAmount() {
     });
 
     const totalAmountCell = document.createElement('td');
-    totalAmountCell.setAttribute('colspan', '3');
+    totalAmountCell.className="ta"
+    totalAmountCell.setAttribute('colspan', '4');
     totalAmountCell.textContent = `Total Amount: ₹${calculateTotalAmount()}`;
 
     cartItemsContainer.appendChild(totalAmountCell);
@@ -82,8 +83,6 @@ function calculateTotalAmount() {
         const dishImage = document.createElement('img');
         dishImage.src = dish.image;
 
-        const desc = document.createElement('div');
-        desc.className = 'desc';
 
         const all = document.createElement('div');
         all.className = 'all';
@@ -91,15 +90,15 @@ function calculateTotalAmount() {
         const name = document.createElement('h3');
         name.textContent = dish.name;
 
-        const description = document.createElement('p');
-        description.textContent = dish.description;
-
         const price = document.createElement('p');
-        price.textContent = `Price: ₹${dish.price}`;
+        price.textContent = `The Special Price: ₹${dish.price}`;
 
         const addButton = document.createElement('button');
-        addButton.textContent = 'Add';
+        addButton.textContent = 'Add to Order';
         addButton.addEventListener('click', () => {
+          addButton.disabled=true
+          addButton.style.backgroundColor="grey"
+          addButton.style.color="white"
             dish.quantity++;
             const updatedDishData = {
                 quantity:dish.quantity ,
@@ -146,11 +145,10 @@ function calculateTotalAmount() {
     })
     img.appendChild(dishImage)
     all.appendChild(name);
-    desc.appendChild(description);
     all.appendChild(price);
     all.appendChild(addButton);
     
-    card.append(img, desc, all)
+    card.append(img,  all)
     
     dishList.appendChild(card);
 })
@@ -158,3 +156,11 @@ function calculateTotalAmount() {
 
 
     })
+
+    console.log(cartItems.length)
+    let text= document.createElement("h1")
+    text.textContent="Nothing";
+    const cartItemsContainer = document.getElementById('cart-items');
+    
+   
+    
