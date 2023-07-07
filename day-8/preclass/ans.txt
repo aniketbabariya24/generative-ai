@@ -1,0 +1,133 @@
+All queries for mongoDB.
+
+1) db.createCollection("Customers", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "email", "address", "phone_number"],
+      properties: {
+        name: { bsonType: "string" },
+        email: { bsonType: "string" },
+        address: { bsonType: "string" },
+        phone_number: { bsonType: "string" }
+      }
+    }
+  }
+})
+
+
+2) db.Customers.insertMany([
+  {
+    name: "Varun Bhat",
+    email: "varun@gmail.com",
+    address: "Bengaluru, India",
+    phone_number: "9856237485"
+  },
+  {
+    name: "Varun Bhat",
+    email: "varun@gmail.com",
+    address: "Bengaluru, India",
+    phone_number: "9856237485"
+  },
+  {
+    name: "Varun Bhat",
+    email: "varun@gmail.com",
+    address: "Bengaluru, India",
+    phone_number: "9856237485"
+  },
+  {
+    name: "Varun Bhat",
+    email: "varun@gmail.com",
+    address: "Bengaluru, India",
+    phone_number: "9856237485"
+  },
+  {
+    name: "Varun Bhat",
+    email: "varun@gmail.com",
+    address: "Bengaluru, India",
+    phone_number: "9856237485"
+  },
+  
+])
+
+
+3) db.Customers.find({})
+
+4) db.Customers.find({}, { name: 1, email: 1 })
+
+5) db.Customers.findOne({ _id: ObjectId("3") })
+
+6) db.Customers.find({ name: /^A/ })
+
+7) db.Customers.find().sort({ name: -1 })
+
+8) db.Customers.updateOne({ _id: ObjectId("4") }, { $set: { address: "New Address" } })
+
+9) db.Customers.find().sort({ _id: 1 }).limit(3)
+
+10) db.Customers.deleteOne({ _id: ObjectId("2") })
+
+11) db.Customers.countDocuments({})
+
+12) db.Customers.find().sort({ _id: 1 }).skip(2)
+
+13) db.Customers.find({ _id: { $gt: ObjectId("2") }, name: /^B/ })
+
+14) db.Customers.find({
+  $or: [
+    { _id: { $lt: ObjectId("3") } },
+    { name: /s$/ }
+  ]
+})
+
+15) db.Customers.find({ $or: [{ phone_number: { $exists: false } }, { phone_number: null }] })
+
+
+
+================> All queries for SQL. <===============
+
+1) CREATE TABLE Customers (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255),
+  email VARCHAR(255),
+  address VARCHAR(255),
+  phone_number VARCHAR(255)
+);
+
+2) INSERT INTO Customers (name, email, address, phone_number)
+VALUES  ('Varun Bhat', 'varun@gmail.com', 'Bengaluru, India', '9856237485'),
+        ('Varun Bhat', 'varun@gmail.com', 'Bengaluru, India', '9856237485'),
+        ('Varun Bhat', 'varun@gmail.com', 'Bengaluru, India', '9856237485'),
+        ('Varun Bhat', 'varun@gmail.com', 'Bengaluru, India', '9856237485'),
+        ('Varun Bhat', 'varun@gmail.com', 'Bengaluru, India', '9856237485');
+
+
+3) SELECT * FROM Customers;
+
+4) SELECT name, email FROM Customers;
+
+5) SELECT * FROM Customers WHERE id = 3;
+
+6) SELECT * FROM Customers WHERE name LIKE 'A%';
+
+7) SELECT * FROM Customers ORDER BY name DESC;
+
+8) UPDATE Customers SET address = 'New Address' WHERE id = 4;
+
+9) SELECT * FROM Customers ORDER BY id ASC LIMIT 3;
+
+10) DELETE FROM Customers WHERE id = 2;
+
+11) SELECT COUNT(*) FROM Customers;
+
+12) SELECT * FROM Customers ORDER BY id ASC OFFSET 2;
+
+13) SELECT * FROM Customers WHERE id > 2 AND name LIKE 'B%';
+
+14) SELECT * FROM Customers WHERE id < 3 OR name LIKE '%s';
+
+15) SELECT * FROM Customers WHERE phone_number IS NULL OR phone_number = '';
+
+
+
+
