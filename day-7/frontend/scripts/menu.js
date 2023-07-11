@@ -89,10 +89,16 @@ function calculateTotalAmount() {
 
         const name = document.createElement('h3');
         name.textContent = dish.name;
+        const desc = document.createElement('p');
+        desc.className="desc"
+        desc.textContent = dish.description;
 
         const price = document.createElement('p');
-        price.textContent = `The Special Price: ₹${dish.price}`;
-
+        price.className="ppp"
+        price.textContent="The Special Price: "
+        const sp= document.createElement("span")
+        sp.textContent = `₹${dish.price}`;
+         price.append(sp)
         const addButton = document.createElement('button');
         addButton.textContent = 'Add to Order';
         addButton.addEventListener('click', () => {
@@ -145,6 +151,7 @@ function calculateTotalAmount() {
     })
     img.appendChild(dishImage)
     all.appendChild(name);
+    all.appendChild(desc);
     all.appendChild(price);
     all.appendChild(addButton);
     

@@ -190,6 +190,17 @@ def delete_dish(id):
 
     return jsonify({'message': 'Dish deleted successfully'})
 
+@app.route('/deletec/<id>', methods=['DELETE'])
+def delete_customer(id):
+    user = User.objects(id=id).first()
+
+    if not user:
+        return jsonify({'message': 'User not found'})
+
+    user.delete()
+
+    return jsonify({'message': 'User deleted successfully'})
+
 
 @app.route('/customer/<id>', methods=['GET'])
 def get_customer(id):

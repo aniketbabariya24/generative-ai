@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.content {
+    flex: 1;
+    height: 100vh;
+    background-color: #f1f1f1;
+    overflow-y: auto;
+}
+
+.content h2 {
+    margin: 20px;
+}
+
+
+#customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+    border: 2px solid red;
+    text-align: center;
+}
+
+#customer-table th,
+#customer-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#customer-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+}
+
+#customer-table td {
+    font-size: 17px;
+    color: #555;
+}
+
+#customer-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+#customer-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#customer-table .actions {
+    text-align: center;
+}
+
+#customer-table .actions button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+#customer-table .actions button:hover {
+    background-color: #45a049;
+}
+
+@media screen and (max-width: 768px) {
+    #customer-table {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #customer-table th,
+    #customer-table td {
+        padding: 10px;
+    }
+
+    #customer-table .actions button {
+        padding: 6px 12px;
+    }
+}
+
+.deleteBtn{
+    padding: 6px 10px;
+    border: none;
+    background-color: rgb(255, 26, 26);
+    color: white;
+}
+
+.deleteBtn:hover{
+    background-color: red;
+    cursor: pointer;
+}
+
+.dCell{
+    text-align: center;
+    display: flex;
+    align-items: center;
+}

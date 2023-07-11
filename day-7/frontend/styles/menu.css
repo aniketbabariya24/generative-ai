@@ -65,7 +65,7 @@ body{
     /* border: 2px solid blue; */
     display: grid;
     grid-template-columns: repeat(2,1fr);
-    gap: 20px;
+    gap: 20px 40px;
   }
 
   .card{
@@ -73,11 +73,13 @@ body{
     height: 190px;
     width: 100%;
     margin: auto;
+
   }
 
   .img{
     width: 50%;
     /* border: 2px solid green; */
+    /* padding: 10px; */
   }
   .img img{
     width: 100%;
@@ -88,50 +90,54 @@ body{
   }
   .all{
     width: 50%;
-    /* border: 2px solid green; */
-
+    padding: 10px;
   }
   .desc{
-    width: 0%;
-    /* border: 2px solid green; */
-    /* padding: 10px; */
+    /* width: 0%;  */
     font-size: 17px;
-    color: #303030;
+    color: grey;
+    margin-bottom: 6px;
+    /* border: 2px solid red; */
+    font-size: 14px;
   }
 
   .card {
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 12px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
    gap: 10px;
+   /* border: 2px solid green; */
   }
-  
+  .ppp span{
+    font-size: 17px;
+    font-weight: bold;
+  }
   .all{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    padding: 0px 10px;
+    background-color: #f3f3f3;
   }
   
   .all button {
-    padding: 8px 16px;
+    padding: 8px 10px;
     background-color: rgb(238,17,29);
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 20px;
-    font-size: 17px;
-    width: 80%;
+    font-size: 16px;
+    /* width: 80%; */
     /* margin: auto; */
+    bottom: 8px;
+    margin-top: 18px;
   }
   
   .all button:hover {
-    background-color: #0069d9;
+    background-color: rgb(215, 6, 16);
   }
  
   
