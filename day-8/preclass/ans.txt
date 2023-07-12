@@ -82,6 +82,166 @@ All queries for mongoDB.
 
 15) db.Customers.find({ $or: [{ phone_number: { $exists: false } }, { phone_number: null }] })
 
+16) db.createCollection("Restaurants")
+
+17) db.Restaurants.insertMany([
+  {
+    "_id": ObjectId(),
+    "name": "Restaurant A",
+    "cuisine_type": "Italian",
+    "location": "New York",
+    "average_rating": 4.2,
+    "delivery_available": true
+  },
+  {
+    "_id": ObjectId(),
+    "name": "Restaurant B",
+    "cuisine_type": "Mexican",
+    "location": "Los Angeles",
+    "average_rating": 3.8,
+    "delivery_available": false
+  },
+  {
+    "_id": ObjectId(),
+    "name": "Restaurant C",
+    "cuisine_type": "Indian",
+    "location": "Chicago",
+    "average_rating": 4.5,
+    "delivery_available": true
+  },
+  {
+    "_id": ObjectId(),
+    "name": "Restaurant D",
+    "cuisine_type": "Chinese",
+    "location": "San Francisco",
+    "average_rating": 4.9,
+    "delivery_available": true
+  },
+  {
+    "_id": ObjectId(),
+    "name": "Restaurant E",
+    "cuisine_type": "Japanese",
+    "location": "New York",
+    "average_rating": 3.5,
+    "delivery_available": true
+  }
+])
+
+18) db.Restaurants.find().sort({ average_rating: -1 })
+
+19) db.Restaurants.find({ delivery_available: true, average_rating: { $gt: 4 } })
+
+20) db.Restaurants.find({ $or: [{ cuisine_type: { $exists: false } }, { cuisine_type: null }] })
+
+21) db.Restaurants.countDocuments({ delivery_available: true })
+
+22) db.Restaurants.find({ location: /New York/ })
+
+23) db.Restaurants.aggregate([{ $group: { _id: null, average_rating: { $avg: "$average_rating" } } }])
+
+24) db.Restaurants.find().sort({ average_rating: -1 }).limit(5)
+
+25) db.Restaurants.deleteOne({ _id: ObjectId("3") })
+
+26) db.createCollection("Rides")
+
+27) db.Rides.insertMany([
+  {
+    id: 1,
+    driver_id: 101,
+    passenger_id: 201,
+    start_location: "A",
+    end_location: "B",
+    distance: 10.5,
+    ride_time: 30.0,
+    fare: 25.0
+  },
+  {
+    id: 2,
+    driver_id: 102,
+    passenger_id: 202,
+    start_location: "C",
+    end_location: "D",
+    distance: 5.2,
+    ride_time: 15.0,
+    fare: 15.5
+  },
+  // Add more documents here for the remaining rides
+])
+
+28) db.Rides.find().sort({ fare: -1 })
+
+29) db.Rides.aggregate([
+  { $group: { _id: null, totalDistance: { $sum: "$distance" }, totalFare: { $sum: "$fare" } } }
+])
+
+30) db.Rides.aggregate([
+  { $group: { _id: null, averageRideTime: { $avg: "$ride_time" } } }
+])
+
+31) db.Rides.find({ $or: [{ start_location: /Downtown/ }, { end_location: /Downtown/ }] })
+
+32) db.Rides.countDocuments({ driver_id: 101 })  // Replace 101 with the desired driver_id
+
+33) db.Rides.updateOne({ id: 4 }, { $set: { fare: 30.0 } })
+
+34) db.Rides.aggregate([
+  { $group: { _id: "$driver_id", totalFare: { $sum: "$fare" } } }
+])
+
+35) db.Rides.deleteOne({ id: 2 })
+
+36) db.Rides.find().sort({ fare: 1 }).limit(1) // Lowest fare
+db.Rides.find().sort({ fare: -1 }).limit(1) // Highest fare
+
+37) db.Rides.aggregate([
+  { $group: { _id: "$driver_id", avgFare: { $avg: "$fare" }, avgDistance: { $avg: "$distance" } } }
+])
+
+38) db.Rides.aggregate([
+  { $group: { _id: "$driver_id", count: { $sum: 1 } } },
+  { $match: { count: { $gt: 5 } } }
+])
+
+39) db.Rides.aggregate([
+  { $lookup: { from: "Drivers", localField: "driver_id", foreignField: "driver_id", as: "driver" } },
+  { $sort: { fare: -1 } },
+  { $limit: 1 },
+  { $project: { _id: 0, driver_name: { $arrayElemAt: ["$driver.name", 0] } } }
+])
+
+40) db.Rides.aggregate([
+  { $group: { _id: "$driver_id", totalEarnings: { $sum: "$fare" } } },
+  { $sort: { totalEarnings: -1 } },
+  { $limit: 3 }
+])
+
+
+41) const today = new Date();
+const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+db.Rides.find({ ride_date: { $gte: sevenDaysAgo, $lte: today } })
+
+
+42) db.Rides.find({ end_location: { $exists: false } })
+
+43) db.Rides.aggregate([
+  { $addFields: { fare_per_mile: { $divide: ["$fare", "$distance"] } } },
+  { $sort: { fare_per_mile: -1 } },
+  { $project: { _id: 1, fare_per_mile: 1 } }
+])
+
+
+44) db.Rides.aggregate([
+  { $lookup: { from: "Passengers", localField: "passenger_id", foreignField: "passenger_id", as: "passenger" } },
+  { $lookup: { from: "Drivers", localField: "driver_id", foreignField: "driver_id", as: "driver" } },
+  { $project: { _id: 0, ride_id: "$id", passenger_name: { $arrayElemAt: ["$passenger.name", 0] }, driver_name: { $arrayElemAt: ["$driver.name", 0] } } }
+])
+
+45) db.Rides.updateMany({}, { $set: { tip: 0 } })
+
+
+
 
 
 ================> All queries for SQL. <===============
@@ -128,6 +288,113 @@ VALUES  ('Varun Bhat', 'varun@gmail.com', 'Bengaluru, India', '9856237485'),
 
 15) SELECT * FROM Customers WHERE phone_number IS NULL OR phone_number = '';
 
+16) CREATE TABLE Restaurants (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    cuisine_type VARCHAR(100),
+    location VARCHAR(255),
+    average_rating DECIMAL(3,2),
+    delivery_available BOOLEAN
+);
 
+17) INSERT INTO Restaurants (id, name, cuisine_type, location, average_rating, delivery_available)
+VALUES
+    (1, 'Restaurant A', 'Italian', 'New York', 4.2, TRUE),
+    (2, 'Restaurant B', 'Mexican', 'Los Angeles', 3.8, FALSE),
+    (3, 'Restaurant C', 'Indian', 'Chicago', 4.5, TRUE),
+    (4, 'Restaurant D', 'Chinese', 'San Francisco', 4.9, TRUE),
+    (5, 'Restaurant E', 'Japanese', 'New York', 3.5, TRUE);
 
+18) SELECT * FROM Restaurants ORDER BY average_rating DESC;
+
+19) SELECT * FROM Restaurants WHERE delivery_available = TRUE AND average_rating > 4;
+
+20) SELECT * FROM Restaurants WHERE cuisine_type IS NULL OR cuisine_type = '';
+
+21) SELECT COUNT(*) FROM Restaurants WHERE delivery_available = TRUE;
+
+22) SELECT * FROM Restaurants WHERE location LIKE '%New York%';
+
+23) SELECT AVG(average_rating) FROM Restaurants;
+
+24) SELECT * FROM Restaurants ORDER BY average_rating DESC LIMIT 5;
+
+25) DELETE FROM Restaurants WHERE id = 3;
+
+26) CREATE TABLE Rides (
+    id INT PRIMARY KEY,
+    driver_id INT,
+    passenger_id INT,
+    start_location VARCHAR(255),
+    end_location VARCHAR(255),
+    distance DECIMAL(5,2),
+    ride_time DECIMAL(5,2),
+    fare DECIMAL(6,2)
+);
+
+27) INSERT INTO Rides (id, driver_id, passenger_id, start_location, end_location, distance, ride_time, fare)
+VALUES
+    (1, 101, 201, 'A', 'B', 10.5, 30.0, 25.0),
+    (2, 102, 202, 'C', 'D', 5.2, 15.0, 15.5),
+    -- Add more rows here for the remaining rides
+;
+
+28) SELECT * FROM Rides ORDER BY fare DESC;
+
+29) SELECT SUM(distance) AS total_distance, SUM(fare) AS total_fare FROM Rides;
+
+30) SELECT AVG(ride_time) AS average_ride_time FROM Rides;
+
+31) SELECT * FROM Rides WHERE start_location LIKE '%Downtown%' OR end_location LIKE '%Downtown%';
+
+32) SELECT COUNT(*) FROM Rides WHERE driver_id = 101; -- Replace 101 with the desired driver_id
+
+33) UPDATE Rides SET fare = 30.0 WHERE id = 4;
+
+34) SELECT driver_id, SUM(fare) AS total_fare FROM Rides GROUP BY driver_id;
+
+35) DELETE FROM Rides WHERE id = 2;
+
+36) SELECT * FROM Rides ORDER BY fare DESC LIMIT 1; -- Highest fare
+SELECT * FROM Rides ORDER BY fare ASC LIMIT 1; -- Lowest fare
+
+37) SELECT driver_id, AVG(fare) AS average_fare, AVG(distance) AS average_distance
+FROM Rides
+GROUP BY driver_id;
+
+38) SELECT driver_id, COUNT(*) AS ride_count
+FROM Rides
+GROUP BY driver_id
+HAVING COUNT(*) > 5;
+
+39) SELECT d.name
+FROM Drivers d
+JOIN Rides r ON d.driver_id = r.driver_id
+ORDER BY r.fare DESC
+LIMIT 1;
+
+40) SELECT r.driver_id, SUM(r.fare) AS total_earnings
+FROM Rides r
+GROUP BY r.driver_id
+ORDER BY total_earnings DESC
+LIMIT 3;
+
+41) SELECT *
+FROM Rides
+WHERE ride_date >= DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY);
+
+42) SELECT *
+FROM Rides
+WHERE end_location IS NULL;
+
+43) SELECT id, fare / distance AS fare_per_mile
+FROM Rides
+ORDER BY fare_per_mile DESC;
+
+44) SELECT r.id, p.name AS passenger_name, d.name AS driver_name
+FROM Rides r
+JOIN Passengers p ON r.passenger_id = p.passenger_id
+JOIN Drivers d ON r.driver_id = d.driver_id;
+
+45) ALTER TABLE Rides ADD COLUMN tip DECIMAL(6,2);
 
