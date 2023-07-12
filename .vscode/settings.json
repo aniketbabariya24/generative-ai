@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./interview/10-7"
+    ]
+}
