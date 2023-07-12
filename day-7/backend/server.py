@@ -15,7 +15,7 @@ mongoUri = os.getenv('MONGOURI')
 
 
 app = Flask(__name__)
-connect('zomato', host=mongoUri)  # Replace with your MongoDB URI
+connect('zomato', host=mongoUri) 
 CORS(app)
 
 # Schema for Users
