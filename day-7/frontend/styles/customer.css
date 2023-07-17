@@ -89,12 +89,7 @@ body {
     }
 }
 
-.deleteBtn{
-    padding: 6px 10px;
-    border: none;
-    background-color: rgb(255, 26, 26);
-    color: white;
-}
+
 
 .deleteBtn:hover{
     background-color: red;

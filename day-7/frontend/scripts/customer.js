@@ -16,9 +16,12 @@ let append=(myData)=>{
     customerList.innerHTML=null
 myData.forEach(customer => {
     const row = document.createElement("tr");
+    ResizeObserver.className="trow"
 
     const nameCell = document.createElement("td");
     nameCell.textContent = customer.name;
+    const userCell = document.createElement("td");
+    userCell.textContent = customer.username;
 
     const emailCell = document.createElement("td");
     emailCell.textContent = customer.email;
@@ -29,11 +32,14 @@ myData.forEach(customer => {
     deleteCell.className="dCell"
     const btn= document.createElement("button")
     btn.className="deleteBtn"
-    btn.textContent = "Delete"
+    btn.textContent = "delete"
     
    btn.onclick=()=>deleteIteam(customer.id)
-    deleteCell.append(btn)
+
+   deleteCell.appendChild(btn)
+
     row.appendChild(nameCell);
+    row.appendChild(userCell);
     row.appendChild(emailCell);
     row.appendChild(cityCell);
     row.appendChild(deleteCell);

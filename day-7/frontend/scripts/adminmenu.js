@@ -20,8 +20,10 @@ function appendDishes(data) {
         const priceCell = document.createElement("td");
         priceCell.textContent = dish.price;
 
-        const actionsCell = document.createElement("td");
-        actionsCell.className = "actions";
+        const editCell = document.createElement("td");
+        editCell.className = "edit";
+        const deleteCell = document.createElement("td");
+        deleteCell.className = "delete";
         
         const editButton = document.createElement("button");
         editButton.textContent = "Edit";
@@ -29,12 +31,13 @@ function appendDishes(data) {
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         
-        actionsCell.appendChild(editButton);
-        actionsCell.appendChild(deleteButton);
+        editCell.appendChild(editButton);
+        deleteCell.appendChild(deleteButton);
         
         row.appendChild(nameCell);
         row.appendChild(priceCell);
-        row.appendChild(actionsCell);
+        row.appendChild(editCell);
+        row.appendChild(deleteCell);
 
         dishesList.appendChild(row);
     });
