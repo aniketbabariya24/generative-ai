@@ -63,9 +63,9 @@ app.post('/convert', async (req, res) => {
 // Handle incoming requests to the /debug route
 app.post('/debug', async (req, res) => {
   try {
-    const { code } = req.body;
+    const { code, fromLanguage } = req.body;
 
-    const prompt = `Debug the following code: ${code}. Please check if there are any errors and correct them. Also, if it's correct, provide steps explaining what the code is doing and how we can improve it.`;
+    const prompt = `This is ${fromLanguage} language code Please, Debug the following code: ${code}. Please check if there are any errors and correct them. Also, if it's correct, provide steps explaining what the code is doing and how we can improve it.`;
 
     const response = await generateCompletion(prompt);
 
@@ -79,9 +79,9 @@ app.post('/debug', async (req, res) => {
 // Handle incoming requests to the /quality route
 app.post('/quality', async (req, res) => {
   try {
-    const { code } = req.body;
+    const { code , fromLanguage} = req.body;
 
-    const prompt = `Check the quality of the following code: ${code}. Please provide detailed information and also provide some tips to improve, in bullet points.`;
+    const prompt = `This is ${fromLanguage} language code Please, Check the quality of the following code: ${code}. Please provide detailed information and also provide some tips to improve, in bullet points.`;
 
     const response = await generateCompletion(prompt);
 
