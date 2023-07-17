@@ -1,0 +1,52 @@
+.App {
+    text-align: center;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 500px;
+    margin: auto;
+  }
+  
+  input,
+  button {
+    margin-top: 0.5rem;
+  }
+  
+  button {
+    background-color: #3498db;
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  .Post {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .Post button {
+    margin-left: 0.5rem;
+  }
+  
+  .Post form {
+    margin-top: 0.5rem;
+  }
+  
+  .Post input,
+  .Post button {
+    margin-top: 0.5rem;
+  }
+  
